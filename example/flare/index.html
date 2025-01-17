@@ -1,0 +1,48 @@
+<head>
+  <style> body { margin: 0; } </style>
+
+  <script type="importmap">{ "imports": {
+    "react": "https://esm.sh/react",
+    "react-dom": "https://esm.sh/react-dom/client"
+  }}</script>
+
+<!--  <script type="module">import * as React from 'react'; window.React = React;</script>-->
+<!--  <script src="../../dist/react-sunburst-chart.js" defer></script>-->
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script src="//unpkg.com/@babel/standalone"></script>
+<script type="text/jsx" data-type="module">
+  import Sunburst from 'https://esm.sh/react-sunburst-chart?external=react';
+  import React, { useState, useEffect, useMemo, useCallback } from 'react';
+  import { createRoot } from 'react-dom';
+  import { scaleOrdinal } from 'https://esm.sh/d3-scale';
+  import { schemePaired } from 'https://esm.sh/d3-scale-chromatic';
+
+  const Chart = () => {
+    const [flareData, setFlareData] = useState();
+
+    useEffect(() => {
+      // load data
+      fetch('flare.json').then(res => res.json())
+        .then(data => setFlareData(data));
+    }, []);
+
+    const color = useMemo(() => scaleOrdinal(schemePaired), []);
+
+    return <Sunburst
+      data={flareData}
+      label="name"
+      size="size"
+      color={useCallback((d, parent) => color(parent ? parent.data.name : null), [color])}
+      tooltipContent={useCallback((d, node) => `Size: <i>${node.value}</i>`, [])}
+    />;
+
+
+  }
+
+  createRoot(document.getElementById('chart')).render(<Chart />);
+</script>
+</body>

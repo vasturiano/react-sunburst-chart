@@ -1,0 +1,56 @@
+<head>
+  <style> body { margin: 0; } </style>
+
+  <script type="importmap">{ "imports": {
+    "react": "https://esm.sh/react",
+    "react-dom": "https://esm.sh/react-dom/client"
+  }}</script>
+
+<!--  <script type="module">import * as React from 'react'; window.React = React;</script>-->
+<!--  <script src="../../dist/react-sunburst-chart.js" defer></script>-->
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script src="//unpkg.com/@babel/standalone"></script>
+<script type="text/jsx" data-type="module">
+  import Sunburst from 'https://esm.sh/react-sunburst-chart?external=react';
+  import React from 'react';
+  import { createRoot } from 'react-dom';
+  import { scaleOrdinal } from 'https://esm.sh/d3-scale';
+  import { schemePaired } from 'https://esm.sh/d3-scale-chromatic';
+
+  const CHILDREN_PROB_DECAY = 0.5; // per level
+  const MAX_CHILDREN = 40;
+  const MAX_VALUE = 100;
+
+  function genNode(name='root', probOfChildren=1) {
+    if (Math.random() < probOfChildren) {
+      return {
+        name,
+        children: [...Array(Math.round(Math.random() * MAX_CHILDREN))]
+                .map((_, i) => genNode(i, probOfChildren - CHILDREN_PROB_DECAY))
+      }
+    } else {
+      return {
+        name,
+        value: Math.round(Math.random() * MAX_VALUE)
+      }
+    }
+  }
+
+  const color = scaleOrdinal(schemePaired);
+
+  createRoot(document.getElementById('chart')).render(
+    <Sunburst
+      data={genNode()}
+      sort={(a, b) => b.value - a.value} // sort descending by size
+      color={d => color(d.name)}
+      minSliceAngle={.4}
+      showLabels={false}
+      tooltipContent={(d, node) => `Size: <i>${node.value}</i>`}
+    />
+  );
+</script>
+</body>

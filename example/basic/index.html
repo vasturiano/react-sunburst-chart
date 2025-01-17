@@ -1,0 +1,61 @@
+<head>
+  <style> body { margin: 0; } </style>
+
+  <script type="importmap">{ "imports": {
+    "react": "https://esm.sh/react",
+    "react-dom": "https://esm.sh/react-dom/client"
+  }}</script>
+
+<!--  <script type="module">import * as React from 'react'; window.React = React;</script>-->
+<!--  <script src="../../dist/react-sunburst-chart.js" defer></script>-->
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script src="//unpkg.com/@babel/standalone"></script>
+<script type="text/jsx" data-type="module">
+  import Sunburst from 'https://esm.sh/react-sunburst-chart?external=react';
+  import React from 'react';
+  import { createRoot } from 'react-dom';
+
+  const data = {
+    name: 'main',
+    color: 'magenta',
+    children: [{
+      name: 'a',
+      color: 'yellow',
+      size: 1
+    },{
+      name: 'b',
+      color: 'red',
+      children: [{
+        name: 'ba',
+        color: 'orange',
+        size: 1
+      }, {
+        name: 'bb',
+        color: 'blue',
+        children: [{
+          name: 'bba',
+          color: 'green',
+          size: 1
+        }, {
+          name: 'bbb',
+          color: 'pink',
+          size: 1
+        }]
+      }]
+    }]
+  };
+
+  createRoot(document.getElementById('chart')).render(
+    <Sunburst
+      data={data}
+      size="size"
+      color="color"
+      radiusScaleExponent={1}
+    />
+  );
+</script>
+</body>
