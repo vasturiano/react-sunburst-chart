@@ -49,7 +49,7 @@ ReactDOM.render(
 
 | Prop | Type | Default | Description |
 | --- | :--: | :--: | --- |
-| <b>data</b> | <i>object</i> | | Chart data (see below for syntax details). |
+| <b>data</b> | <i>object</i> | - | Chart data (see below for syntax details). |
 | <b>width</b> | <i>number</i> | *&lt;window width&gt;* | Chart width in px. |
 | <b>height</b> | <i>number</i> | *&lt;window height&gt;* | Chart height in px. |
 | <b>children</b> | <i>string</i> or <i>func</i> | `children` | Data node's children accessor, used to establish the hierarchical relationship between nodes. Supports either a <i>string</i> indicating the object's property name, or a `function(node)` which should return an array of nodes. |
