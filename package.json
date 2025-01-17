@@ -1,6 +1,6 @@
 {
   "name": "react-sunburst-chart",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A sunburst interactive chart React component for visualizing hierarchical data",
   "license": "MIT",
   "type": "module",
