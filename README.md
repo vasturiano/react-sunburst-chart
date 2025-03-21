@@ -29,7 +29,7 @@ import Sunburst from 'react-sunburst-chart';
 or using a *script* tag
 
 ```html
-<script src="//unpkg.com/react-sunburst-chart"></script>
+<script src="//cdn.jsdelivr.net/npm/react-sunburst-chart"></script>
 ```
 
 then
